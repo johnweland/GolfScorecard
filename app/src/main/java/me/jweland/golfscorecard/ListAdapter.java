@@ -8,9 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by jweland on 11/5/2015.
- */
 public class ListAdapter extends BaseAdapter {
     private final Context mContext;
     private final Hole[] mHoles;
@@ -54,6 +51,11 @@ public class ListAdapter extends BaseAdapter {
 
         holder.holeLabel.setText(mHoles[position].getLabel());
         holder.strokeCount.setText(mHoles[position].getStrokeCount() + "");
+        if (mHoles[position].getStrokeCount() < 1 ) {
+            holder.removeStrokeButton.setEnabled(false);
+        } else {
+            holder.removeStrokeButton.setEnabled(true);
+        }
         holder.removeStrokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +63,11 @@ public class ListAdapter extends BaseAdapter {
                 if (updatedStrokeCount < 0) updatedStrokeCount = 0;
                 mHoles[position].setStrokeCount(updatedStrokeCount);
                 holder.strokeCount.setText(updatedStrokeCount + "");
+                if (mHoles[position].getStrokeCount() < 1 ) {
+                    holder.removeStrokeButton.setEnabled(false);
+                } else {
+                    holder.removeStrokeButton.setEnabled(true);
+                }
             }
         });
         holder.addStrokeButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +76,11 @@ public class ListAdapter extends BaseAdapter {
                 int updatedStrokeCount = mHoles[position].getStrokeCount() + 1;
                 mHoles[position].setStrokeCount(updatedStrokeCount);
                 holder.strokeCount.setText(updatedStrokeCount + "");
+                if (mHoles[position].getStrokeCount() < 1 ) {
+                    holder.removeStrokeButton.setEnabled(false);
+                } else {
+                    holder.removeStrokeButton.setEnabled(true);
+                }
             }
         });
 
