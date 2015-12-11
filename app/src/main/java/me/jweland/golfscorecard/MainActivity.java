@@ -3,8 +3,10 @@ package me.jweland.golfscorecard;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,16 +25,48 @@ public class MainActivity extends ListActivity {
         mSharedPreferences = getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.action_toolbar);
+        setSupportActionBar(toolbar);
+
         //Initialize holes object
         int strokes = 0;
         for(int i = 0; i < mHoles.length; i++) {
             strokes = mSharedPreferences.getInt(KEY_STROKECOUNT + i, 0);
             mHoles[i] = new Hole("Hole " + (i + 1) + " :", strokes);
         }
-        
+
         mListAdapter = new ListAdapter(this, mHoles);
         setListAdapter(mListAdapter);
-        
+
+    }
+
+
+    private void setSupportActionBar(Toolbar toolbar) {
+        toolbar.inflateMenu((R.menu.menu_main));
+        toolbar.setLogo(R.mipmap.ic_logo);
+
+
+        // Set an OnMenuItemClickListener to handle menu item clicks
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Handle the menu item
+                int id = item.getItemId();
+
+                //noinspection SimplifiableIfStatement
+                if (id == R.id.action_clear_strokes) {
+                    mEditor.clear();
+                    mEditor.apply();
+
+                    for (Hole hole : mHoles) {
+                        hole.setStrokeCount(0);
+                    }
+                    mListAdapter.notifyDataSetChanged();
+                    return true;
+                }
+                return true;
+            }
+        });
     }
 
     @Override

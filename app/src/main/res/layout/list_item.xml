@@ -26,15 +26,20 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="-"
+        android:text="@string/remove_stroke_button_text"
         android:textSize="24sp"
-        android:id="@+id/removeStrokeButton"/>
+        android:id="@+id/removeStrokeButton"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"/>
 
     <Button
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:text="@string/add_stroke_button_text"
         android:textSize="24sp"
-        android:id="@+id/addStrokeButton"/>
+        android:id="@+id/addStrokeButton"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"/>
+
 </LinearLayout>
