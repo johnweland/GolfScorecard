@@ -44,6 +44,8 @@ public class MainActivity extends ListActivity {
     private void setSupportActionBar(Toolbar toolbar) {
         toolbar.inflateMenu((R.menu.menu_main));
         toolbar.setLogo(R.mipmap.ic_logo);
+        //toolbar.setTitle(R.string.app_name);
+        //toolbar.setTitleTextColor(getResources().getColor(R.color.colorText));
 
 
         // Set an OnMenuItemClickListener to handle menu item clicks
